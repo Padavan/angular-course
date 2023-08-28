@@ -59,12 +59,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   loadCharactersAndPlanet(): void {
-    console.log("loadCharactersAndPlanet");
     // 4. On clicking the button 'Load Characters And Planets', it is necessary to process two requests and combine the results of both requests into one result array. As a result, a list with the names of the characters and the names of the planets is displayed on the screen.
     // Your code should looks like this: this.planetAndCharactersResults$ = /* Your code */
     // YOUR CODE STARTS HERE
 
-    // this.planetAndCharactersResults$.subscribe(s => console.log("planetAndCharactersResults$:", s));
     this.planetAndCharactersResults$ = forkJoin(
       this.mockDataService.getCharacters(),
       this.mockDataService.getPlatents()
@@ -84,13 +82,15 @@ export class AppComponent implements OnInit, OnDestroy {
     - Check the received value using the areAllValuesTrue function and pass them to the isLoading variable. */
     // YOUR CODE STARTS HERE
 
-    combineLatest(
-      this.mockDataService.getCharactersLoader(),
-      this.mockDataService.getPlanetLoader()
-    ).subscribe(
-      (arr) => {
-        this.isLoading = this.areAllValuesTrue(arr);
-      }
+    this.subscriptions.push(
+      combineLatest(
+        this.mockDataService.getCharactersLoader(),
+        this.mockDataService.getPlanetLoader()
+      ).subscribe(
+        (arr) => {
+          this.isLoading = this.areAllValuesTrue(arr);
+        }
+      )
     );
     // YOUR CODE ENDS HERE
   }
@@ -98,6 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // 5.2 Unsubscribe from all subscriptions
     // YOUR CODE STARTS HERE
+    this.subscriptions.forEach(s => s.unsubscribe());
     // YOUR CODE ENDS HERE
   }
 
