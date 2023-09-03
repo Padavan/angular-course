@@ -1,4 +1,5 @@
 <div class="app-header">
-  <img alt="logo" src="assets/logo.svg">
-  <!-- Enter your code here -->
+  <img class="app-header__logo" alt="logo" src="assets/logo.svg">
+  <span *ngIf="user">{{user}}</span>
+  <app-button [buttonText]="buttonText" [iconName]="headerButtonIcon" [onClick]="handleLogin"></app-button>
 </div>

@@ -4,10 +4,13 @@
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <!--<app-info></app-info>-->
+  <app-info [title]="emptyInfoTitle" [text]="emptyInfoText" [onClick]="addNewCourse"></app-info>
 
+
+  <hr>
+  <h2> Course Card</h2>
   <!-- Course Card component -->
-  <!--<app-course-card></app-course-card>-->
+  <app-course-info [course]="mockCourse"></app-course-info>
 
   <!-- Login Form component -->
   <!--<app-login-form></app-login-form>-->
@@ -20,4 +23,8 @@
 
   <!-- Modal component -->
   <!-- <app-modal [message]="'Message'" [title]="'Title'" [okButtonText]="'Ok'" [cancelButtonText]="'Cancel'"></app-modal> -->
+
+  <hr>
+  <h2> App Courses</h2>
+  <app-courses></app-courses>
 </div>
