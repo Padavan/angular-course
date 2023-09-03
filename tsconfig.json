@@ -34,6 +34,7 @@
     "noUnusedParameters" : true,
     "exactOptionalPropertyTypes" : true,
     "noUncheckedIndexedAccess" : true,
+    "isolatedModules": true,
     "paths": {
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],
