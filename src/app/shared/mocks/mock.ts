@@ -1,4 +1,8 @@
-export const mockedCoursesList = [
+import { Author } from "../components/types/author.types"
+import { Course } from "../components/types/course.types"
+
+
+export const mockedCoursesList: Array<Course> = [
     {
         id: 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba',
         title: 'JavaScript',
@@ -23,7 +27,7 @@ export const mockedCoursesList = [
     },
 ]
 
-export const mockedAuthorsList = [
+export const mockedAuthorsList:Array<Author> = [
     {
         id: '27cc3006-e93a-4748-8ca8-73d06aa93b6d',
         name: 'Vasiliy Dobkin'

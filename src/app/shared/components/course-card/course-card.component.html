@@ -7,17 +7,14 @@
         <div class="course-card__info-text">
             <div>
               <b>Authors: </b>
-              TODO
+              {{authors}}
             </div>
             <div><b>Duration: </b><span class="course-card__duration">{{duration}}</span></div>
             <div><b>Created: </b><span class="course-card__date">{{creationDate}}</span></div>
         </div>
         <div class="course-card__info-actions">
-            <app-button [buttonText]="'Show courses'" [onClick]="clickOnShow"></app-button>
-            <div *ngIf="editable" class="course-card__buttons">
-                <app-button [iconName]="'edit'" (click)="editCourse"></app-button>
-                <app-button [iconName]="'trash'" (click)="deleteCourse"></app-button>
-            </div>
+            <app-button [buttonText]="'Show courses'" (onClick)="handleShowCourse()"></app-button>
+            <ng-content *ngIf="editable"></ng-content>
         </div>
     </div>
 </div>

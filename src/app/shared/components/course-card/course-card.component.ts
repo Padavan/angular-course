@@ -1,4 +1,6 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { mockedAuthorsList } from '@app/shared/mocks/mock';
+import { Course } from '../types';
 
 @Component({
   selector: 'app-course-card',
@@ -10,29 +12,31 @@ export class CourseCardComponent {
   description: string = "Description";
   creationDate: string = "creationDate";
   duration: number = 0;
-  authors: string[] = [];
+  authors: string = "-";
 
   @Input() editable = true;
-  @Input() course:any = {};
+  @Input() course: Course | undefined;
 
-  @Input() clickOnShow() {
-    console.log("clickOnShow");
-  }
+  @Output() clickOnShow = new EventEmitter();
 
-  @Input() editCourse() {
-    console.log("course-card editCourse");
-  }
-
-  @Input() deleteCourse() {
-    console.log("course-card deleteCourse");
+  handleShowCourse() {
+    console.log("handleShowCourse");
+    this.clickOnShow.emit();
   }
 
   ngOnInit() {
-    const { title, description, creationDate, duration, authors } = this.course;
-    this.title = title;
-    this.description = description;
-    this.creationDate = creationDate;
-    this.duration = duration;
-    this.authors = authors;
+    if (!this.course) {
+      return;
+    }
+    this.title = this.course.title;
+    this.description = this.course.description;
+    this.creationDate = this.course.creationDate;
+    this.duration = this.course.duration;
+    this.authors = this.getAuthors(this.course.authors);
+  }
+
+  getAuthors(authors: Array<string>): string {
+    const authorList = mockedAuthorsList.filter(author => authors.includes(author.id));
+    return authorList.map(a => a.name).join(", ");
   }
 }

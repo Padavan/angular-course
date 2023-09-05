@@ -1,11 +1,15 @@
-<app-header></app-header>
+<app-header>
+  <span *ngIf="user">{{user}}</span>
+  <app-button [buttonText]="buttonText" (onClick)="handleLogin()"></app-button>
+</app-header>
 <div class="app-root">
   <!-- Search component -->
   <!--<app-search></app-search>-->
 
   <!-- Info component -->
-  <app-info [title]="emptyInfoTitle" [text]="emptyInfoText" [onClick]="addNewCourse"></app-info>
-
+  <app-info [title]="emptyInfoTitle" [text]="emptyInfoText">
+    <app-button buttonText="Add New Course" (onClick)="handleAddNewCourse()"></app-button>
+  </app-info>
 
   <hr>
   <h2> Course Card</h2>

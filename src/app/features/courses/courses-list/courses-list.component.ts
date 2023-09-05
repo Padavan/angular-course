@@ -1,4 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
+import { Course } from '@app/shared/components/types/course.types';
 
 @Component({
   selector: 'app-courses-list',
@@ -7,11 +8,11 @@ import { Component, Input, Output } from '@angular/core';
 })
 export class CourseListComponent {
   title = 'app-courses-app';
-  @Input() courses: Array<any> = [];
+  @Input() courses: Array<Course> = [];
   @Input() editable = false;
 
   @Output() showCourse() {
-    console.log("showCourse");
+    console.log("showCourse courses-list");
   }
 
   @Output() editCourse() {
