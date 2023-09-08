@@ -1,4 +1,4 @@
-<div class="app-button">
-  <!-- Replace the text below with your code -->
-  Button
+<div tabindex="0" class="app-button" (click)="handleClick()" >
+  <fa-icon *ngIf="iconName" [icon]="['fas', iconName]"></fa-icon>
+  <span>{{ buttonText }}</span>
 </div>
