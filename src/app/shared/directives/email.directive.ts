@@ -1,13 +1,15 @@
 import { Directive } from "@angular/core";
-import { AbstractControl, ValidationErrors, Validator } from "@angular/forms";
+import { AbstractControl, ValidationErrors, Validator, NG_VALIDATORS } from "@angular/forms";
 
 @Directive({
     selector: '[emailValidator]',
-    providers: [/*Add your code here*/]
+    providers: [{ provide: NG_VALIDATORS, useExisting: EmailValidatorDirective, multi: true }]
 })
 export class EmailValidatorDirective implements Validator {
     // Add your code here
     validate(control: AbstractControl<any, any>): ValidationErrors | null {
+        const isValid = control.value?.includes("@");
+        if (!isValid) return { emailValidation: { value: "Test" }};
         return null;
     }
-}
+}                   

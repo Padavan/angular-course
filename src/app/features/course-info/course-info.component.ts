@@ -9,26 +9,6 @@ import { mockedAuthorsList } from '@app/shared/mocks/mock';
 export class CourseInfoComponent {
   @Input() course: any | null = null;
 
-  getCreationDate() {
-    if (!this.course) {
-      return "-";
-    }
-
-    return this.course.creationDate.split("/").join(".");
-  }
-
-  getDuration() {
-    if (!this.course) {
-      return "-";
-    }
-
-    const hours = Math.floor(this.course.duration / 60).toString();
-    const minutes = Math.floor(this.course.duration % 60).toString();
-
-    return hours.padStart(1, "0") + ":" + minutes.padStart(2, "0");
-
-  }
-
   getAuthors() {
     if (!this.course) {
       return "-";

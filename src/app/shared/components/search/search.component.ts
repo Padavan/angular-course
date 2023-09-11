@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
 })
 export class SearchComponent {
   // Use the name `placeholder` for the @Input.
+
+  searchQuery = "";
+
+  @Input() placeholder: string = "Input text";
   // Use the name `search` for the @Output.
+  @Output() handleSearch() {
+    console.log("handleSearch", this.searchQuery);
+  };
 }
 
