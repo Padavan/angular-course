@@ -34,6 +34,5 @@ export class AppComponent implements OnInit {
       this.user = "John Doe"
     }
   }
-
 }
 

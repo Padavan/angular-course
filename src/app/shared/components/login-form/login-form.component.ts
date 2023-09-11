@@ -21,5 +21,4 @@ export class LoginFormComponent implements OnInit {
  onSubmit(form: NgForm) {
     console.log(form.valid, { credentials: this.credentials});
   }
-
 }
