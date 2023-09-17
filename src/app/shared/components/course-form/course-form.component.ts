@@ -18,7 +18,9 @@ export class CourseFormComponent implements OnInit {
   courseForm!: FormGroup;
   // Use the names `title`, `description`, `author`, 'authors' (for authors list), `duration` for the form controls.
 
-  authorList: Array<{ id: string, name: string }> = [];
+  allAuthorList: Array<{ id: string, name: string }> = [{ id: "1", name: "Author 1"}, { id: "2", name: "Author 2"}]; 
+  // authorList: Array<{ id: string, name: string }> = [];
+
 
   ngOnInit():void {
 
@@ -36,15 +38,23 @@ export class CourseFormComponent implements OnInit {
     return this.courseForm.controls["authors"] as FormArray<FormGroup>;
   }
 
+  selectAuthor = new FormControl("");
+
   addAuthor() {
+    const newId = crypto.randomUUID();
+    const name = this.author.getRawValue();
+
+    if (!name) return;
+
     const newAuthor = this.fb.group({
-      id: [crypto.randomUUID(), Validators.required],
-      name: [this.author.getRawValue(), Validators.required]
+      id: [newId, Validators.required],
+      name: [name, Validators.required]
     });
 
     this.authors.controls.forEach(f => console.log("f", f));
 
     this.authors.push(newAuthor);
+    this.allAuthorList.push({ id: newId, name });
     this.author.reset();
   }
 
@@ -54,5 +64,19 @@ export class CourseFormComponent implements OnInit {
 
   submitForm(form: FormGroup) {
     console.log('submettedForm', form.value);
+  }
+
+  handleAuthorSelect(id: string) {
+    const existingAuthor = this.allAuthorList.find(a => a.id === id);
+
+    if (existingAuthor) {
+      const newAuthor = this.fb.group({
+        id: [existingAuthor.id, Validators.required],
+        name: [existingAuthor.name, Validators.required]
+      });
+
+      this.authors.push(newAuthor);
+      this.selectAuthor.reset();
+    }
   }
 }

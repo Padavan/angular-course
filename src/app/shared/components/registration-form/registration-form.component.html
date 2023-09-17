@@ -6,8 +6,8 @@
         <label for="name">Name</label>
         <!--Use the name `name` for the form control.-->
         <input type="text" id="name" placeholder="Input text" formControlName="name" />
-        <span *ngIf="registrationForm.get('name')?.hasError('required')" id="nameErrorMessage" class="text-danger">Name is required.</span>
-        <span *ngIf="registrationForm.get('name')?.hasError('minlength')" id="nameErrorLengthMessage" class="text-danger">Should be at least 6 characters</span>
+        <span *ngIf="registrationForm.get('name')?.hasError('required') && registrationForm.invalid" id="nameErrorMessage" class="text-danger">Name is required.</span>
+        <span *ngIf="registrationForm.get('name')?.hasError('minlength') && registrationForm.invalid" id="nameErrorLengthMessage" class="text-danger">Should be at least 6 characters</span>
       </div>
       <div class="form__control">
         <!--Use the name `email` for the form control.-->

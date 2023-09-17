@@ -27,6 +27,15 @@
       </div>
       <div class="separator"></div>
       <h3>Authors</h3>
+
+      <div class="course__select">
+        <label htmlfor="authorSelect">Select Author</label>
+        <select #selectedAuthor name="Authors" id="authorSelect" [formControl]="selectAuthor" (change)="handleAuthorSelect(selectedAuthor.value)">
+          <option [ngValue]="null">Select author</option>
+          <option *ngFor="let author of allAuthorList" [value]="author.id">{{author.name}}</option>
+        </select>
+      </div>
+
       <div class="form__control">
         <div class="course__flex">
           <!--Use the name `author` for the form control.-->

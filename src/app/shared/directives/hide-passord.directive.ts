@@ -10,7 +10,8 @@ export class HidePasswordDirective {
     const parent = this.el.nativeElement.parentNode;
 
     this.span = document.createElement('span');
-    this.span.innerHTML = `Show password`;
+    this.span.innerHTML = `Show`;
+    this.span.setAttribute("class", "showPassword");
     this.span.addEventListener('click', () => this.toggle());
     parent.appendChild(this.span);
   }
@@ -21,10 +22,10 @@ export class HidePasswordDirective {
 
     if (currentType === "password") {
       this.el.nativeElement.setAttribute('type', 'text');
-      this.span.innerHTML = 'Hide password';
+      this.span.innerHTML = 'Hide';
     } else {
       this.el.nativeElement.setAttribute('type', 'password');
-      this.span.innerHTML = 'Show password';
+      this.span.innerHTML = 'Show';
     }
   }
 }
