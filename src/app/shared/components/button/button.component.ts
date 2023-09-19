@@ -15,6 +15,8 @@ export class ButtonComponent {
   @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
   @Input() buttonText = "";
   @Input() iconName: IconName | null = null;
+  @Input() type: string = "button";
+  @Input() disabled: boolean = false;
   handleClick() {
     this.onClick.emit();
   };
