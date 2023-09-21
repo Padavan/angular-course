@@ -8,8 +8,6 @@ import {
   InfoComponent,
   SearchComponent,
   CourseCardComponent,
-  LoginFormComponent,
-  RegistrationFormComponent,
   CourseFormComponent
 } from "./components";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -17,6 +15,7 @@ import { DurationPipe } from './pipes/duration.pipe';
 import { CustomDatePipe } from './pipes/custom-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
 import { HidePasswordDirective } from '@shared/directives/hide-passord.directive';
+import { RouterModule } from '@angular/router';
 
 const components = [
   HeaderComponent,
@@ -25,8 +24,6 @@ const components = [
   SearchComponent,
   ModalComponent,
   CourseCardComponent,
-  LoginFormComponent,
-  RegistrationFormComponent,
   CourseFormComponent,
   DurationPipe,
   CustomDatePipe,
@@ -39,6 +36,7 @@ const components = [
   imports: [
     CommonModule,
     FontAwesomeModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
   ],

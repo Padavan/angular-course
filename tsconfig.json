@@ -33,7 +33,7 @@
     "alwaysStrict" : false,
     "exactOptionalPropertyTypes" : true,
     "noUncheckedIndexedAccess" : true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "paths": {
       "@app/*": ["src/app/*"],
       "@shared/*": ["src/app/shared/*"],
