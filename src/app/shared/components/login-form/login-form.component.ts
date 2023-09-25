@@ -23,8 +23,6 @@ export class LoginFormComponent {
   }
 
  onSubmit(form: NgForm) {
-    console.log(form.valid, { credentials: this.credentials});
-
     this.authService.login({
       email: this.credentials?.email || "",
       password: this.credentials?.password || ""

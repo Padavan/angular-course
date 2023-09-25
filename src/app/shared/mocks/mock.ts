@@ -1,6 +1,4 @@
-import { Author } from "../components/types/author.types"
-import { Course } from "../components/types/course.types"
-
+import { Author, Course } from "../types/shared.types"
 
 export const mockedCoursesList: Array<Course> = [
     {

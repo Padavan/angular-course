@@ -12,13 +12,10 @@ export class AuthorizedGuard implements CanLoad {
     ){}
     // Add your code here
     canLoad(route: Route, segments: UrlSegment[]) {
-        const isAuthorised = this.auth.isAuthorised;
-        console.log("ROUTE", isAuthorised);
-        if (isAuthorised) {
-            return this.auth.isAuthorised;
+        if (this.auth.isAuthorised) {
+            return true;
         } else {
             return this.router.parseUrl('/login');
-            // this.route.navigate()
         }
     }
 }

@@ -14,30 +14,25 @@ export class AppComponent implements OnInit {
     private auth: AuthService
   ) {}
   title = 'courses-app';
-  emptyInfoTitle = "Your list is empty";
-  emptyInfoText = "Please use 'Add New Course' button to add your first course";
-
-  handleAddNewCourse() {
-    console.log("handleAddNewCourse");
-  }
-
-  mockCourse = mockedCoursesList[0];
+  isAuth: boolean = false;
 
   user: string | null = null;
   buttonText = "Login";
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.auth.isAuthorized$.subscribe(isAuth => {
+      this.isAuth = isAuth;
+      this.buttonText = isAuth ? "Logout" : "Login"; 
+    })
+  }
 
   handleLogin() {
-    console.log("this.auth.isAuthorised", this.auth.isAuthorised);
-    if (this.auth.isAuthorised) {
-      this.auth.logout();
-      // this.user = null;
-      // this.buttonText = "Login";
+    if (this.isAuth) {
+      this.auth.logout().subscribe(res => {
+        this.router.navigate(['/login']);
+      });
     } else {
       this.router.navigate(['/login']);
-      // this.buttonText = "Logout";
-      // this.user = "John Doe"
     }
   }
 }

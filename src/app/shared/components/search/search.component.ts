@@ -15,9 +15,6 @@ export class SearchComponent {
   @Output() onSearchEvent = new EventEmitter();
 
   handleSearch() {
-    console.log("handleSearch");
-    this.onSearchEvent.emit();
+    this.onSearchEvent.emit(this.searchQuery);
   }
-
 }
-

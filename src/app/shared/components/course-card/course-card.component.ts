@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { CoursesStoreService } from '@app/services/courses-store.service';
 import { mockedAuthorsList } from '@app/shared/mocks/mock';
-import { Course } from '../types';
+import { Author, Course } from '@app/shared/types/shared.types';
+import { UserStoreService } from '@app/user/services/user-store.service';
 
 @Component({
   selector: 'app-course-card',
@@ -8,11 +11,19 @@ import { Course } from '../types';
   styleUrls: ['./course-card.component.scss']
 })
 export class CourseCardComponent {
+  id: string = "";
   title: string = "Title";
   description: string = "Description";
   creationDate: string = "creationDate";
   duration: number = 0;
   authors: string = "-";
+  routerLink: string | undefined;
+
+  constructor(
+    private router: Router,
+    private courseStoreService: CoursesStoreService,
+    private userStoreService: UserStoreService
+  ){}
 
   @Input() editable = true;
   @Input() course: Course | undefined;
@@ -20,23 +31,32 @@ export class CourseCardComponent {
   @Output() clickOnShow = new EventEmitter();
 
   handleShowCourse() {
-    console.log("handleShowCourse");
-    this.clickOnShow.emit();
+    this.router.navigate([`/courses/${this.id}`]);
   }
 
   ngOnInit() {
     if (!this.course) {
       return;
     }
+    this.courseStoreService.authors$.subscribe((fullList: Author[]) => {
+      if (this.course?.authors) {
+        this.authors = this.getAuthors(fullList, this.course.authors);
+      }
+    });
+
     this.title = this.course.title;
     this.description = this.course.description;
     this.creationDate = this.course.creationDate;
     this.duration = this.course.duration;
-    this.authors = this.getAuthors(this.course.authors);
+    
+    this.id = this.course.id;
+    this.userStoreService.isAdmin$.subscribe(isAdmin => {
+      this.editable = isAdmin;
+    });
   }
 
-  getAuthors(authors: Array<string>): string {
-    const authorList = mockedAuthorsList.filter(author => authors.includes(author.id));
+  getAuthors(fullAuthorList: Array<Author>, authors: Array<string>): string {
+    const authorList = fullAuthorList.filter(author => authors.includes(author.id));
     return authorList.map(a => a.name).join(", ");
   }
 }
