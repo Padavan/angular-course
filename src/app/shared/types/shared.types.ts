@@ -1,4 +1,4 @@
- export type Course = {
+export type Course = {
   id: string;
   title: string,
   description: string,
@@ -31,4 +31,9 @@ export type Credentials = {
   name?: string,
   email: string,
   password: string,
+}
+
+export type ApiResponse<T> = {
+  successful: boolean,
+  result: T,
 }

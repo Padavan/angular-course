@@ -1,20 +1,20 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { LoginFormComponent, RegistrationFormComponent } from "@app/shared/components";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+import { LoginFormComponent, RegistrationFormComponent } from "@app/shared/components"
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: LoginFormComponent,
   },
   {
-    path: 'registration',
+    path: "registration",
     component: RegistrationFormComponent,
   },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule {};
+export class AuthRoutingModule {}

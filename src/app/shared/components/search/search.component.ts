@@ -1,20 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from "@angular/core"
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.scss"]
 })
 export class SearchComponent {
   // Use the name `placeholder` for the @Input.
 
-  searchQuery = "";
+  searchQuery = ""
 
-  @Input() placeholder: string = "Input text";
+  @Input() placeholder: string = "Input text"
   // Use the name `search` for the @Output.
-  @Output() onSearchEvent = new EventEmitter();
+  @Output() onSearchEvent = new EventEmitter()
 
   handleSearch() {
-    this.onSearchEvent.emit(this.searchQuery);
+    this.onSearchEvent.emit(this.searchQuery)
   }
 }

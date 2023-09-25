@@ -1,23 +1,22 @@
-import { Injectable } from '@angular/core';
-import { Route, Router, UrlSegment } from '@angular/router';
-import { UserStoreService } from '../services/user-store.service';
+import { Injectable } from "@angular/core"
+import { CanActivate } from "@angular/router"
+import { UserStoreService } from "../services/user-store.service"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
-export class AdminGuard {
+export class AdminGuard implements CanActivate{
   // Add your code here
   constructor(
     private userService: UserStoreService,
-    private router: Router
   ){}
   
   // Add your code here
-  canActivate(route: Route, segments: UrlSegment[]) {
+  canActivate() {
     if (this.userService.isAdmin) {
-      return true;
+      return true
     } else {
-      return this.router.parseUrl('/courses');
+      return false
     }
   }
 }

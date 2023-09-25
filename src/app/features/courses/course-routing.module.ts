@@ -1,8 +1,8 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { CoursesComponent } from "./courses.component";
-import { CourseFormComponent } from "@app/shared/components";
-import { AdminGuard } from "@app/user/guards/admin.guard";
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+import { CoursesComponent } from "./courses.component"
+import { CourseFormComponent } from "@app/shared/components"
+import { AdminGuard } from "@app/user/guards/admin.guard"
  
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
     component: CourseFormComponent,
     canActivate: [AdminGuard]
   },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

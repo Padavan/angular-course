@@ -1,29 +1,29 @@
-import { Directive } from "@angular/core";
-import { AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, ValidatorFn } from "@angular/forms";
+import { Directive } from "@angular/core"
+import { AbstractControl, ValidationErrors, Validator, NG_VALIDATORS, ValidatorFn } from "@angular/forms"
 
 export function emailValidator(): ValidatorFn {  
-    return (control: AbstractControl): { [key: string]: any } | null =>  {
+  return (control: AbstractControl): { [key: string]: string } | null =>  {
 
-        const isValid = control.value?.includes("@");
-        return (!isValid)
-            ? {
-                emailValidation: "email not valid"
-            }
-            : null;
-    }
+    const isValid = control.value?.includes("@")
+    return (!isValid)
+      ? {
+        emailValidation: "email not valid"
+      }
+      : null
+  }
 }
 
 @Directive({
-    selector: '[emailValidator]',
-    providers: [{
-        provide: NG_VALIDATORS,
-        useExisting: EmailValidatorDirective,
-        multi: true
-    }]
+  selector: "[emailValidator]",
+  providers: [{
+    provide: NG_VALIDATORS,
+    useExisting: EmailValidatorDirective,
+    multi: true
+  }]
 })
 export class EmailValidatorDirective implements Validator {
-    // Add your code here
-    validate(control: AbstractControl<string, string>): ValidationErrors | null {
-        return emailValidator()(control);
-    }
+  // Add your code here
+  validate(control: AbstractControl<string, string>): ValidationErrors | null {
+    return emailValidator()(control)
+  }
 }
