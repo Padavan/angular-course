@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { SessionStorageService } from "@app/auth/services/session-storage.service"
-import { User } from "@app/shared/types/shared.types"
+import { ApiResponse, User } from "@app/shared/types/shared.types"
 import { map } from "rxjs/operators"
 
 const API_URL = "http://localhost:4000"
@@ -26,7 +26,7 @@ export class UserService {
     }
 
     return this.httpClient
-      .get<User>(API_URL + "/users/me", { headers: httpHeaders }).pipe(
+      .get<ApiResponse<User>>(API_URL + "/users/me", { headers: httpHeaders }).pipe(
         map(res => res),
       )  
   }

@@ -20,6 +20,7 @@ export const routes: Routes = [
     canLoad: [ AuthorizedGuard ],
   },
   { path: "", redirectTo: "/courses", pathMatch: "full" },
+  { path: "**", redirectTo: "/courses" },
 ]
 
 

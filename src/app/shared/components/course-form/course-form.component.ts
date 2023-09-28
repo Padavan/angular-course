@@ -151,10 +151,8 @@ export class CourseFormComponent implements OnInit {
       }
 
       this.courseStoreService.editCourse(this.isEdit, saveCourse)
-        .subscribe(resp => {
-          if (resp.successful) {
-            this.router.navigate(["/courses"])
-          }
+        .subscribe(() => {
+          this.router.navigate(["/courses"])
         })
     }
   }

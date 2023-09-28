@@ -9,7 +9,7 @@
     <div><b>ID: </b><span class="course-info__info-id">{{courseInfo.id}}</span></div>
     <div><b>Duration: </b><span class="course-info__info-duration">{{ courseInfo.duration | duration }}</span></div>
     <div><b>Created: </b><span class="course-info__info-date">{{ courseInfo.creationDate | customDate }}</span></div>
-    <div><b>Authors: </b><span class="course-info__info-authors">{{getAuthors()}}</span></div>
+    <div><b>Authors: </b><span class="course-info__info-authors">{{getAuthors(courseInfo.authors)}}</span></div>
   </div>
 </div>
 <div class="navigation-block">
