@@ -1,5 +1,6 @@
 <!-- Replace ::text:: with your code -->
-<h2>Create / Edit Course</h2>
+<h2 *ngIf="isEdit">Edit Course</h2>
+<h2 *ngIf="!isEdit">Create</h2>
 <form [formGroup]="courseForm">
   <div class="app-plate">
     <div class="course">
@@ -68,7 +69,8 @@
         <span id="durationRequiredErrorMessage" *ngIf="courseForm.get('duration')?.hasError('required')" class="text-danger">Duration is required.</span>
       </div>
       <div class="form__action">
-        <app-button (onClick)="submitForm(courseForm)"></app-button>
+        <app-button *ngIf="!isEdit" buttonText="Create" (onClick)="submitForm(courseForm)"></app-button>
+        <app-button *ngIf="isEdit" buttonText="Save" (onClick)="saveCourse(courseForm)"></app-button>
       </div>
     </div>
   </div>

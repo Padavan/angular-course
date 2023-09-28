@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core"
 
 @Component({
-    selector: 'loader',
-    templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.scss'],
+  selector: "loader",
+  templateUrl: "./loader.component.html",
+  styleUrls: ["./loader.component.scss"],
 })
 export class AppLoader {
-    @Input() public isLoading: boolean = false;
+    @Input() public isLoading: boolean = false
 }

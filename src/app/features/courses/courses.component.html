@@ -1,3 +1,4 @@
 <div class="app-courses">
-  <app-courses-list [courses]="data"></app-courses-list>
+  <loader *ngIf="isLoading"></loader>
+  <app-courses-list [courses]="(data | async)"></app-courses-list>
 </div>

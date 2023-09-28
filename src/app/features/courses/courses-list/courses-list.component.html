@@ -1,6 +1,19 @@
+<app-search (onSearchEvent)="onSearchEvent($event)"></app-search>
 <div *ngFor="let course of courses">
-  <app-course-card [course]="course" (clickOnShow)="showCourse()">
-    <app-button [iconName]="'edit'" (onClick)="editCourse()"></app-button>
-    <app-button [iconName]="'trash'" (onClick)="deleteCourse()"></app-button>
+  <app-course-card [course]="course" (clickOnShow)="showCourse($event)">
+    <app-button [iconName]="'edit'" (onClick)="editCourse(course.id)"></app-button>
+    <app-button [iconName]="'trash'" (onClick)="deleteCourse(course.id)"></app-button>
   </app-course-card>
 </div>
+<app-info
+  *ngIf="!courses || !courses.length"
+  title="Your list is empty"
+  text="Please use 'Add New Course' button to add your first course">
+  <app-button buttonText="Add New Course" (onClick)="handleAddNewCourse()"></app-button>
+</app-info>
+<app-info
+  *ngIf="courses && courses.length"
+  title=""
+  text="">
+  <app-button *ngIf={editable} buttonText="Add New Course" (onClick)="handleAddNewCourse()"></app-button>
+</app-info>

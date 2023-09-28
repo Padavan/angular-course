@@ -1,13 +1,19 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CourseInfoComponent } from './course-info.component';
-import { SharedModule } from '@app/shared/shared.module';
+import { NgModule } from "@angular/core"
+import { CommonModule } from "@angular/common"
+import { CourseInfoComponent } from "./course-info.component"
+import { SharedModule } from "@app/shared/shared.module"
+import { RouterModule, Routes } from "@angular/router"
+
+const routes: Routes = [
+  {path: "", component: CourseInfoComponent}
+]
 
 @NgModule({
   declarations: [CourseInfoComponent],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild(routes)
   ],
   exports: [CourseInfoComponent]
 })
