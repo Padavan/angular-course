@@ -27,9 +27,7 @@ export class CoursesService {
     }
 
     return this.httpClient
-      .get<ApiResponse<Course[]>>(API_URL + "/courses/all", { headers: httpHeaders }).pipe(
-        map(res => res),
-      )
+      .get<ApiResponse<Course[]>>(API_URL + "/courses/all", { headers: httpHeaders })
   }
 
   createCourse(course: AddCourse) { // replace 'any' with the required interface

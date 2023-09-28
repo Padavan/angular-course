@@ -8,6 +8,9 @@ import { AuthorizedGuard } from "@app/auth/guards/authorized.guard"
 import { AppRoutingModule } from "./app-routing.module"
 import { RouterModule } from "@angular/router"
 import { HttpClientModule } from "@angular/common/http"
+import { StoreModule } from "@ngrx/store"
+import { effects, reducers } from "./store"
+import { EffectsModule } from "@ngrx/effects"
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +20,9 @@ import { HttpClientModule } from "@angular/common/http"
     SharedModule,
     FontAwesomeModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot(effects)
   ],
   providers: [AuthorizedGuard, NotAuthorizedGuard],
   bootstrap: [AppComponent],

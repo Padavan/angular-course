@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Output } from "@angular/core"
 import { Router } from "@angular/router"
-import { CoursesStoreService } from "@app/services/courses-store.service"
 import { Course } from "@app/shared/types/shared.types"
+import { CoursesStateFacade } from "@app/store/courses/courses.facade"
 import { UserStoreService } from "@app/user/services/user-store.service"
 
 @Component({
@@ -13,16 +13,16 @@ export class CourseListComponent implements OnInit {
   title = "app-courses-app"
 
   constructor(
-    private courseStoreService: CoursesStoreService,
     private userStoreService: UserStoreService,
-    private router: Router
+    private router: Router,
+    private courseFacade: CoursesStateFacade,
   ) {}
 
-  @Input() courses: Array<Course> = []
+  @Input() courses: Array<Course> | null = null
   @Input() editable = false
 
-  @Output() showCourse() {
-    console.log("showCourse courses-list")
+  @Output() showCourse(id: string) {
+    this.router.navigate([`/courses/${id}`])
   }
 
   @Output() editCourse(id: string) {
@@ -30,35 +30,21 @@ export class CourseListComponent implements OnInit {
   }
 
   @Output() deleteCourse(id: string) {
-    this.courseStoreService.deleteCourse(id).subscribe()
+    this.courseFacade.deleteCourse(id)
   }
 
   ngOnInit(): void {
-    // this.courseService.getAll();
     this.userStoreService.isAdmin$.subscribe(isAdmin => {
       this.editable = isAdmin
-    })
-
-    this.courseStoreService.courses$.subscribe(list => {
-      if (list.length === 0) {
-        this.emptyInfoText = "Your list is empty"
-        this.emptyInfoText = "Please use 'Add New Course' button to add your first course"
-      } else {
-        this.emptyInfoText = ""
-        this.emptyInfoText = ""
-      }
     })
   }
 
   onSearchEvent(searchValue: string) {
-    this.courseStoreService.filterCourses(searchValue).subscribe()
+    this.courseFacade.getFilteredCourses(searchValue)
   }
 
   handleAddNewCourse() {
     this.router.navigate(["/courses/add"])
   }
-
-  emptyInfoText = ""
-  emptyInfoTitle = ""
 }
 

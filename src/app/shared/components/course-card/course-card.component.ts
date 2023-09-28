@@ -27,10 +27,10 @@ export class CourseCardComponent {
   @Input() editable = true
   @Input() course: Course | undefined
 
-  @Output() clickOnShow = new EventEmitter()
+  @Output() clickOnShow = new EventEmitter<string>()
 
   handleShowCourse() {
-    this.router.navigate([`/courses/${this.id}`])
+    this.clickOnShow.emit(this.id)
   }
 
   ngOnInit() {

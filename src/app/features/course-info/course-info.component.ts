@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core"
 import { ActivatedRoute, Router } from "@angular/router"
 import { CoursesStoreService } from "@app/services/courses-store.service"
-import { Author, Course } from "@app/shared/types/shared.types"
+import { Author } from "@app/shared/types/shared.types"
+import { CoursesStateFacade } from "@app/store/courses/courses.facade"
 
 @Component({
   selector: "app-course-info",
@@ -9,9 +10,10 @@ import { Author, Course } from "@app/shared/types/shared.types"
   styleUrls: ["./course-info.component.scss"]
 })
 export class CourseInfoComponent implements OnInit {
-  courseInfo: Course | undefined = undefined
-  authorsList: Author[] = []
+  courseInfo$ = this.courseFacade.course$
+  authors:Author[] = []
   constructor(
+    private courseFacade: CoursesStateFacade,
     private courseStoreService: CoursesStoreService,
     private route: ActivatedRoute,
     private router: Router,
@@ -20,15 +22,11 @@ export class CourseInfoComponent implements OnInit {
   ngOnInit(): void {
     const courseId = this.route.snapshot.paramMap.get("id")
     if (courseId) {
-      this.courseStoreService
-        .getCourse(courseId)
-        .subscribe(info => {
-          this.courseInfo = info
-        })
+      this.courseFacade.getSingleCourse(courseId)
     }
 
     this.courseStoreService.authors$.subscribe(list => {
-      this.authorsList = list
+      this.authors = list
     })
   }
 
@@ -36,12 +34,10 @@ export class CourseInfoComponent implements OnInit {
     this.router.navigate(["/courses"])
   }
 
-  getAuthors(authors: string[]) {
-    if (this.courseInfo === undefined) {
-      return "-"
-    }
+  getAuthors(courseAuthors: string[]) {
 
-    const authorList = this.authorsList.filter(author => authors.includes(author.id))
+    const authorList: Author[] = [] 
+    this.authors.filter(author => courseAuthors.includes(author.id))
     return authorList.map(a => a.name).join(", ")
   }
 }

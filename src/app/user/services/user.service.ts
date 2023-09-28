@@ -28,6 +28,6 @@ export class UserService {
     return this.httpClient
       .get<ApiResponse<User>>(API_URL + "/users/me", { headers: httpHeaders }).pipe(
         map(res => res),
-      )  
+      )
   }
 }
