@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core"
-import { CoursesStoreService } from "@app/services/courses-store.service"
-import { Course } from "@app/shared/types/shared.types"
+import { CoursesStateFacade } from "@app/store/courses/courses.facade"
 import { UserStoreService } from "@app/user/services/user-store.service"
+import { CoursesStoreService } from "@app/services/courses-store.service"
 
 @Component({
   selector: "app-courses",
@@ -9,25 +9,19 @@ import { UserStoreService } from "@app/user/services/user-store.service"
   styleUrls: ["./courses.component.scss"]
 })
 export class CoursesComponent implements OnInit {
-  data: Course[] = []
-  isLoading: boolean = false
+  data = this.courseFacade.allCourses$
+  isLoading = this.courseFacade.isAllCoursesLoading$
 
   constructor(
-    private courseStoreService: CoursesStoreService,
     private userStoreService: UserStoreService,
-  ) {}
+    private courseFacade: CoursesStateFacade,
+    private courseStoreService: CoursesStoreService,
+  ) {
+    this.courseFacade.getAllCourses()
+    this.courseStoreService.getAllAuthors().subscribe()
+  }
 
   ngOnInit(): void {
-    this.courseStoreService.getAll().subscribe()
-    this.courseStoreService.courses$.subscribe(list => {
-      this.data = list
-    })
-
-    this.courseStoreService.isLoading$.subscribe(state => {
-      this.isLoading = state
-    })
-
-    this.courseStoreService.getAllAuthors().subscribe()
     this.userStoreService.getUser().subscribe()
   }
 }

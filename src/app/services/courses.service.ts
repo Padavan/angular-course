@@ -27,9 +27,7 @@ export class CoursesService {
     }
 
     return this.httpClient
-      .get<ApiResponse<Course[]>>(API_URL + "/courses/all", { headers: httpHeaders }).pipe(
-        map(res => res),
-      )
+      .get<ApiResponse<Course[]>>(API_URL + "/courses/all", { headers: httpHeaders })
   }
 
   createCourse(course: AddCourse) { // replace 'any' with the required interface
@@ -43,7 +41,7 @@ export class CoursesService {
     }
 
     return this.httpClient
-      .post<Course>(API_URL + "/courses/add", course, { headers: httpHeaders }).pipe(
+      .post<ApiResponse<Course>>(API_URL + "/courses/add", course, { headers: httpHeaders }).pipe(
         map(res => res),
       )
   }
@@ -58,7 +56,7 @@ export class CoursesService {
     }
 
     return this.httpClient
-      .put<Course>(API_URL + `/courses/${id}`, course, { headers: httpHeaders }).pipe(
+      .put<ApiResponse<Course>>(API_URL + `/courses/${id}`, course, { headers: httpHeaders }).pipe(
         map(res => res),
       )
 

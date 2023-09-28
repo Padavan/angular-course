@@ -1,15 +1,15 @@
 <!-- Replace ::text:: with your code -->
 
-<div *ngIf="courseInfo" class="title">{{courseInfo.title}}</div>
-<div *ngIf="courseInfo" class="course-info">
+<div *ngIf="courseInfo$ | async as course" class="title">{{course.title}}</div>
+<div *ngIf="courseInfo$ | async as course" class="course-info">
   <div class="course-info__description">
-    {{courseInfo.description}}
+    {{course.description}}
   </div>
   <div class="course-info__info">
-    <div><b>ID: </b><span class="course-info__info-id">{{courseInfo.id}}</span></div>
-    <div><b>Duration: </b><span class="course-info__info-duration">{{ courseInfo.duration | duration }}</span></div>
-    <div><b>Created: </b><span class="course-info__info-date">{{ courseInfo.creationDate | customDate }}</span></div>
-    <div><b>Authors: </b><span class="course-info__info-authors">{{getAuthors()}}</span></div>
+    <div><b>ID: </b><span class="course-info__info-id">{{course.id}}</span></div>
+    <div><b>Duration: </b><span class="course-info__info-duration">{{ course.duration | duration }}</span></div>
+    <div><b>Created: </b><span class="course-info__info-date">{{ course.creationDate | customDate}}</span></div>
+    <div><b>Authors: </b><span class="course-info__info-authors">{{getAuthors(course.authors)}}</span></div>
   </div>
 </div>
 <div class="navigation-block">

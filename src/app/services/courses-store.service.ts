@@ -42,7 +42,7 @@ export class CoursesStoreService {
     // Add your code here
     return this.courseService.editCourse(id, course).pipe(
       switchMap(() => this.getAll()),
-      tap(courses => this.courses$$.next(courses))
+      tap(courses => this.courses$$.next(courses)),
     )
   }
 

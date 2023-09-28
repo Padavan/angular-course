@@ -53,7 +53,7 @@ export class AuthService implements OnInit {
 
   register(user: Credentials) { // replace 'any' with the required interface
     // Add your code here
-    return this.httpClient.post<void>(API_URL + "/register", user)
+    return this.httpClient.post<ApiResponse<Credentials>>(API_URL + "/register", user)
   }
 
   get isAuthorised() {

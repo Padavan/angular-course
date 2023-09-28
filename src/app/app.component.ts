@@ -10,7 +10,7 @@ import { AuthService } from "./auth/services/auth.service"
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
   ) {}
   title = "courses-app"
   isAuth: boolean = false

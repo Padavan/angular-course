@@ -6,6 +6,7 @@ import {
 import { ActivatedRoute, Router } from "@angular/router"
 import { CoursesStoreService } from "@app/services/courses-store.service"
 import { AddCourse, Author, Course } from "@app/shared/types/shared.types"
+import { CoursesStateFacade } from "@app/store/courses/courses.facade"
 import { FaIconLibrary } from "@fortawesome/angular-fontawesome"
 import { fas } from "@fortawesome/free-solid-svg-icons"
 
@@ -21,6 +22,7 @@ export class CourseFormComponent implements OnInit {
     private courseStoreService: CoursesStoreService,
     private route: ActivatedRoute,
     private router: Router,
+    private courseFacade: CoursesStateFacade,
   ) {
     library.addIconPacks(fas)
   }
@@ -118,12 +120,9 @@ export class CourseFormComponent implements OnInit {
         authors: form.value.authors.map((author: Author) => author.id),
       }
 
-      this.courseStoreService.createCourse(addCourse)
-        .subscribe(resp => {
-          if (resp.successful) {
-            this.router.navigate(["/courses"])
-          }
-        })
+      this.courseFacade.createCourse(addCourse)
+      // TODO router action
+      this.router.navigate(["/courses"])
     }
   }
 
@@ -150,12 +149,9 @@ export class CourseFormComponent implements OnInit {
         authors: form.value.authors.map((author: Author) => author.id),
       }
 
-      this.courseStoreService.editCourse(this.isEdit, saveCourse)
-        .subscribe(resp => {
-          if (resp.successful) {
-            this.router.navigate(["/courses"])
-          }
-        })
+      this.courseFacade.editCourse(saveCourse, this.isEdit)
+      // TODO router action
+      this.router.navigate(["/courses"])
     }
   }
 }
