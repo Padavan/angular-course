@@ -40,10 +40,10 @@
       <div>
         <div class="form__action">
           <!-- <button type="submit">Submit</button> -->
-          <app-button type="submit" buttonText="Login" (onClick)="onSubmit(loginForm)"></app-button>
+          <app-button type="submit" buttonText="Login" (onClick)="onSubmit()"></app-button>
         </div>
         <div class="form__text">
-          If you don't have an account you may <strong>Registration</strong>
+          If you don't have an account you may <a routerLink='/registration'>Registration</a>
         </div>
       </div>
     </div>

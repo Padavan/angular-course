@@ -1,37 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { mockedCoursesList } from './shared/mocks/mock';
+import { Component, OnInit } from "@angular/core"
+import { Router } from "@angular/router"
+import { AuthService } from "./auth/services/auth.service"
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
 export class AppComponent implements OnInit {
-  title = 'courses-app';
-  emptyInfoTitle = "Your list is empty";
-  emptyInfoText = "Please use 'Add New Course' button to add your first course";
+  constructor(
+    private router: Router,
+    private auth: AuthService
+  ) {}
+  title = "courses-app"
+  isAuth: boolean = false
 
-  handleAddNewCourse() {
-    console.log("handleAddNewCourse");
+  user: string | null = null
+  buttonText = "Login"
+
+  ngOnInit() {
+    this.auth.isAuthorized$.subscribe(isAuth => {
+      this.isAuth = isAuth
+      this.buttonText = isAuth ? "Logout" : "Login" 
+    })
   }
 
-  mockCourse = mockedCoursesList[0];
-
-
-
-  user: string | null = null;
-  buttonText = "Login";
-
-  ngOnInit() {}
-
   handleLogin() {
-    console.log("handleLogin")
-    if (this.user) {
-      this.user = null;
-      this.buttonText = "Login";
+    if (this.isAuth) {
+      this.auth.logout().subscribe(() => {
+        this.router.navigate(["/login"])
+      })
     } else {
-      this.buttonText = "Logout";
-      this.user = "John Doe"
+      this.router.navigate(["/login"])
     }
   }
 }

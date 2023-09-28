@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core"
 
 @Injectable()
 export class CoursesEffects {
-    constructor() {}
+  constructor() {}
 
-    // Add your code here
+  // Add your code here
 }

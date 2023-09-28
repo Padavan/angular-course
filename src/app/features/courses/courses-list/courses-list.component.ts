@@ -1,26 +1,64 @@
-import { Component, Input, Output } from '@angular/core';
-import { Course } from '@app/shared/components/types/course.types';
+import { Component, Input, OnInit, Output } from "@angular/core"
+import { Router } from "@angular/router"
+import { CoursesStoreService } from "@app/services/courses-store.service"
+import { Course } from "@app/shared/types/shared.types"
+import { UserStoreService } from "@app/user/services/user-store.service"
 
 @Component({
-  selector: 'app-courses-list',
-  templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.scss']
+  selector: "app-courses-list",
+  templateUrl: "./courses-list.component.html",
+  styleUrls: ["./courses-list.component.scss"]
 })
-export class CourseListComponent {
-  title = 'app-courses-app';
-  @Input() courses: Array<Course> = [];
-  @Input() editable = false;
+export class CourseListComponent implements OnInit {
+  title = "app-courses-app"
+
+  constructor(
+    private courseStoreService: CoursesStoreService,
+    private userStoreService: UserStoreService,
+    private router: Router
+  ) {}
+
+  @Input() courses: Array<Course> = []
+  @Input() editable = false
 
   @Output() showCourse() {
-    console.log("showCourse courses-list");
+    console.log("showCourse courses-list")
   }
 
-  @Output() editCourse() {
-    console.log("editCourse");
+  @Output() editCourse(id: string) {
+    this.router.navigate([`/courses/edit/${id}`])
   }
 
-  @Output() deleteCourse() {
-    console.log("deleteCourse");
+  @Output() deleteCourse(id: string) {
+    this.courseStoreService.deleteCourse(id).subscribe()
   }
+
+  ngOnInit(): void {
+    // this.courseService.getAll();
+    this.userStoreService.isAdmin$.subscribe(isAdmin => {
+      this.editable = isAdmin
+    })
+
+    this.courseStoreService.courses$.subscribe(list => {
+      if (list.length === 0) {
+        this.emptyInfoText = "Your list is empty"
+        this.emptyInfoText = "Please use 'Add New Course' button to add your first course"
+      } else {
+        this.emptyInfoText = ""
+        this.emptyInfoText = ""
+      }
+    })
+  }
+
+  onSearchEvent(searchValue: string) {
+    this.courseStoreService.filterCourses(searchValue).subscribe()
+  }
+
+  handleAddNewCourse() {
+    this.router.navigate(["/courses/add"])
+  }
+
+  emptyInfoText = ""
+  emptyInfoTitle = ""
 }
 
